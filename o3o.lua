@@ -380,6 +380,10 @@ end
 
 Enable()
 
+if string.match(game.PlaceId, "1234408990") or string.match(game.PlaceId, "1269513822") or string.match(game.PlaceId, "2511620169") or string.match(game.PlaceId, "2591382751") or string.match(game.PlaceId, "5431100846") or string.match(game.PlaceId, "5431104427") or string.match(game.PlaceId, "5891659534") then
+Disable()
+end
+
 while task.wait() do
 if player.Character and player.Character:FindFirstChild("Stamina") then
 player.Character:FindFirstChild("Stamina").Value = 1000
