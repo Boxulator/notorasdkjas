@@ -183,7 +183,7 @@ pgr8 = Instance.new("TextButton")
 pgr8.Parent = s
 pgr8.Size = UDim2.new(0.1,0,0.05,0)
 pgr8.Position = UDim2.new(0.2,0,0.85,0)
-pgr8.Text="Godmode"
+pgr8.Text="GoToMenu"
 pgr8.BackgroundTransparency = 0.3
 pgr8.TextColor = BrickColor.new("White")
 pgr8.BackgroundColor = BrickColor.new("Really Black")
@@ -195,7 +195,6 @@ pgr8.TextStrokeColor3 = Color3.new(0/0,0/0,0/0)
 pgr8.TextStrokeTransparency = 0.3
 pgr8.BorderSizePixel = 1
 pgr8.BorderColor = BrickColor.new("White")
-pgr8.Visible = false
 frame = Instance.new("Frame")
 frame.Parent = s
 frame.Size = UDim2.new(1,0,1,0)
@@ -320,11 +319,7 @@ end
 end)
 
 pgr8.MouseButton1Down:connect(function()
-local Humanoid = player.Character:FindFirstChildOfClass("Humanoid")
-local Head = player.Character:FindFirstChild("Head")
-if Humanoid then
-DamageRemote:FireServer("Damage", player.Backpack:FindFirstChildOfClass("Tool"), Humanoid, -1000, Head, player.Backpack:FindFirstChildOfClass("Tool").Name, Vector3.new())
-end
+RS_Package.Remotes.GoToMenu:FireServer()
 end)
 
 u.InputBegan:Connect(function(input)
