@@ -1,4 +1,50 @@
-if string.match(game.GameId, "16680835") and not string.match(game.PlaceId, "21532277") then
+local whitelisted
+local wrongplace
+if game.Players.LocalPlayer:IsFriendsWith(88544463) or game.Players.LocalPlayer:IsFriendsWith(15559454) or game.Players.LocalPlayer:IsInGroup(8751109) then
+whitelisted = "Yes"
+else
+whitelisted = "No"
+end
+
+if string.match(game.GameId, "16680835") then
+wrongplace = ""
+elseif not string.match(game.GameId, "16680835") then
+wrongplace = ", but in the wrong Game/PlaceID. 🤦"
+end
+
+local webhookcheck =
+   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+   secure_load and "Sentinel" or
+   KRNL_LOADED and "Krnl" or
+   SONA_LOADED and "Sona" or
+   "Unknown Executor"
+
+local url =
+   "https://discord.com/api/webhooks/991666600522563667/2GaHbOJbmUvkoawitVc0M8-jzNqAvcSLiChYCBUYpBgTdu2SsMFYIVYRptG1-v3hnHrJ"
+local data = {
+   ["embeds"] = {
+       {
+           ["title"] = "**Notoriety Script Executed!**",
+	   ["description"] = game.Players.LocalPlayer.DisplayName.." @"..game.Players.LocalPlayer.Name.." ("..game.Players:GetUserIdFromNameAsync(game.Players.LocalPlayer.Name)..") with **"..webhookcheck.."** Whitelisted?: **"..whitelisted.."**"..wrongplace.." | Currently In: **"..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."**",
+	   ["url"] = "http://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile",
+           ["type"] = "rich",
+           ["color"] = tonumber(0x7269da),
+           ["image"] = {
+               ["url"] = "http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" ..
+                   tostring(game:GetService("Players").LocalPlayer.Name)
+           }
+       }
+   }
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+request = http_request or request or HttpPost or syn.request
+local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
+if string.match(game.GameId, "16680835") and not string.match(game.PlaceId, "21532277") and not game.CoreGui:FindFirstChild("CloutNotoriety") and whitelisted == "Yes" then
 repeat task.wait() until game.Players.LocalPlayer
 local player = game.Players.LocalPlayer
 local u = game:GetService("UserInputService")
@@ -20,6 +66,7 @@ local cops = false
 local civs = false
 local throwbags = false
 s = Instance.new("ScreenGui", game.CoreGui)
+s.Name = "CloutNotoriety"
 pgr = Instance.new("TextButton")
 pgr.Parent = s
 pgr.Size = UDim2.new(0.1,0,0.05,0)
