@@ -1,5 +1,6 @@
 local whitelisted
 local wrongplace
+repeat task.wait() until game.Players.LocalPlayer
 if game.Players.LocalPlayer:IsFriendsWith(88544463) or game.Players.LocalPlayer:IsFriendsWith(15559454) or game.Players.LocalPlayer:IsInGroup(8751109) then
 whitelisted = "Yes"
 else
@@ -45,7 +46,6 @@ request = http_request or request or HttpPost or syn.request
 local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 request(abcdef)
 if string.match(game.GameId, "16680835") and not string.match(game.PlaceId, "21532277") and not game.CoreGui:FindFirstChild("CloutNotoriety") and whitelisted == "Yes" then
-repeat task.wait() until game.Players.LocalPlayer
 local player = game.Players.LocalPlayer
 local u = game:GetService("UserInputService")
 local PoliceFolder = Workspace:WaitForChild("Police")
@@ -62,6 +62,7 @@ local CompleteInteractiontRemote = RS_Package:FindFirstChild("CompleteInteractio
 local hascrowbar = false
 local haswirecutters = false
 local haskeycard = false
+local hasUSB = false
 local cops = false
 local civs = false
 local throwbags = false
@@ -333,14 +334,16 @@ end
 end)
 
 local function notify(objname)
-if objname == "RandomCrate" or objname == "RushCrate" or objname == "MilitaryCrateUNTIMED" or objname == "MiniSafe" or objname == "DisplayCaseRemoveGlass" then
-game.StarterGui:SetCore("SendNotification", {Title = "AutoOpen";Text = "Opening up "..objname.."...";Duration = "4";})
+if objname == "RandomCrate" or objname == "RushCrate" or objname == "MilitaryCrateUNTIMED" or objname == "MiniSafe" or objname == "DisplayCaseRemoveGlass" or objname == "rfid_faceplate" then
+game.StarterGui:SetCore("SendNotification", {Title = "AutoOpen";Text = "Opening up "..objname.."...";Duration = "2";})
 elseif objname == "MilitaryCrateTIMED" then
-game.StarterGui:SetCore("SendNotification", {Title = "AutoDefuse";Text = "Defusing "..objname.."...";Duration = "4";})
+game.StarterGui:SetCore("SendNotification", {Title = "AutoDefuse";Text = "Defusing "..objname.."...";Duration = "2";})
+elseif objname == "KickDoor" then
+game.StarterGui:SetCore("SendNotification", {Title = "AutoKick";Text = "FBI OPEN UP!";Duration = "2";})
 elseif objname == "CardReader" then
-game.StarterGui:SetCore("SendNotification", {Title = "AutoCardReader";Text = "Inserting KeyCard...";Duration = "4";})
+game.StarterGui:SetCore("SendNotification", {Title = "AutoCardReader";Text = "Inserting KeyCard...";Duration = "2";})
 else
-game.StarterGui:SetCore("SendNotification", {Title = "AutoLoot";Text = "Picking up "..objname.."...";Duration = "4";})
+game.StarterGui:SetCore("SendNotification", {Title = "AutoLoot";Text = "Picking up "..objname.."...";Duration = "2";})
 end
 end
 
@@ -386,7 +389,28 @@ local knownloots = {
 "KeyCard",
 "Key",
 "CardReader",
-"LootDrill"}
+"LootDrill",
+"KickDoor",
+"missionItem_hook",
+"missionItem_rope",
+"missionItem_laptopHack",
+"USB",
+"rfid_faceplate",
+"prop_stadium_storageKeypad",
+"prop_stadium_USBComputer1",
+"prop_stadium_USBComputer2",
+"UseUSBComputer",
+"CodeKeypad",
+"stadiumDramaticButton",
+"ObjectivePickDoor1",
+"ObjectivePickDoor2",
+"StadiumHackLaptop",
+"AssemblePulleyRope",
+"AssemblePulleyRope_",
+"GoldGuitar_Invisible",
+"GoldGuitar",
+"PulleyLever_",
+"PulleyLever"}
 
 local function DescendantAdded(object)
 for Index,loottable in pairs(knownloots)do
@@ -435,6 +459,9 @@ if player.Character and player.Character:FindFirstChild("BagSpeed") then
 player.Character:FindFirstChild("BagSpeed").Value = 1
 end
 
+RS_Package.Host.Value = player.UserId
+RS_Package.Kicking.Value = 2
+
 for equip,ment in pairs(game:GetService("ReplicatedStorage").ReplicatedMissionEquipment:GetChildren())do
 if ment.Name == "Crowbar" and ment.Value == player then
 hascrowbar = true
@@ -444,6 +471,9 @@ haswirecutters = true
 end
 if ment.Name == "Key Card" and ment.Value == player then
 haskeycard = true
+end
+if ment.Name == "USB" and ment.Value == player then
+hasUSB = true
 end
 end
 
@@ -818,6 +848,20 @@ task.wait()
 until c == nil or not c:FindFirstChild("Spacer") or tick() > Time or (player.Character:FindFirstChild("HumanoidRootPart").Position - c:FindFirstChild("Spacer").Position).magnitude > 10
 if c:FindFirstChild("Spacer") and c:FindFirstChild("Spacer"):FindFirstChild("ProximityPrompt") then
 CompleteInteractiontRemote:FireServer(c:FindFirstChild("Spacer"):FindFirstChild("ProximityPrompt"))
+end
+end
+elseif c.Name == "KickDoor" and c:FindFirstChild("MainPart2") and c.Parent.Name ~= "OpenDoor" then
+if (c:FindFirstChild("MainPart2").Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10 then
+notify(c.Name)
+local Time = tick() + .1
+repeat
+if c:FindFirstChild("MainPart2") and c:FindFirstChild("MainPart2"):FindFirstChild("ProximityPrompt") then
+StartInteractRemote:FireServer(c:FindFirstChild("MainPart2"):FindFirstChild("ProximityPrompt"))
+end
+task.wait()
+until c == nil or not c:FindFirstChild("MainPart2") or tick() > Time or (player.Character:FindFirstChild("HumanoidRootPart").Position - c:FindFirstChild("MainPart2").Position).magnitude > 10
+if c:FindFirstChild("MainPart2") and c:FindFirstChild("MainPart2"):FindFirstChild("ProximityPrompt") then
+CompleteInteractiontRemote:FireServer(c:FindFirstChild("MainPart2"):FindFirstChild("ProximityPrompt"))
 end
 end
 elseif c.Name == "Key" and c:FindFirstChild("Hitbox") then
