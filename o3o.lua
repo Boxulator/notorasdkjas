@@ -407,6 +407,7 @@ local knownloots = {
 "StadiumHackLaptop",
 "AssemblePulleyRope",
 "AssemblePulleyRope_",
+"AssemblePulleyHook",
 "GoldGuitar_Invisible",
 "GoldGuitar",
 "PulleyLever_",
