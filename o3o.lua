@@ -593,6 +593,14 @@ DamageRemote:FireServer("Damage", player.Backpack:FindFirstChildOfClass("Tool"),
 end
 end
 
+for _,police in pairs(CivilliansFolder:GetChildren())do--free kills lol
+local Humanoid = police:FindFirstChildOfClass("Humanoid")
+local Head = police:FindFirstChild("Head")
+if Humanoid then
+DamageRemote:FireServer("Damage", player.Backpack:FindFirstChildOfClass("Tool"), Humanoid, 9e999, Head, player.Backpack:FindFirstChildOfClass("Tool").Name, Vector3.new())
+end
+end
+
 game.Workspace.Gravity = 10
 
 for pussy,penises in ipairs(trophytable) do
