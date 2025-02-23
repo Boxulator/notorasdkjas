@@ -421,6 +421,8 @@ local knownloots = {
 "Samurai",
 "Artifact",
 "MiniSafe",
+"OpenedSafe",
+"OpenedRegister",
 "ATMmoney",
 "RandomCrate",
 "OpenCrate",
@@ -438,6 +440,7 @@ local knownloots = {
 "DisplayCaseRemoveGlass",
 "ArtObject",
 "SmallJewels",
+"SmallJewels2",
 "KeyCard",
 "Key",
 "CardReader",
@@ -527,7 +530,9 @@ game:GetService("ReplicatedStorage").RS_Package.Remotes.PlayerReady:FireServer(p
 end
 end
 
-wait(5)
+repeat task.wait() until game.Workspace.Criminals:FindFirstChildOfClass("Model")
+
+wait(2)
 
 for _,lol in pairs(game.Workspace.Criminals:GetChildren())do
 if string.match(lol.Name, "AI") then
@@ -535,6 +540,7 @@ lol.NAMETAG.TextLabel.Text = "Random spinjutsu ass weeeeeeeee"
 end
 end
 
+repeat
 for _,police in pairs(CivilliansFolder:GetChildren())do--free kills lol
 local Humanoid = police:FindFirstChildOfClass("Humanoid")
 local Head = police:FindFirstChild("Head")
@@ -552,6 +558,10 @@ DamageRemote:FireServer("Damage", player.Backpack:FindFirstChildOfClass("Tool"),
 end
 wait()
 end
+task.wait() 
+until not PoliceFolder:FindFirstChildOfClass("Model") and not CivilliansFolder:FindFirstChildOfClass("Model") 
+
+wait(2)
 
 local p=Instance.new("Part",workspace)
 	p.Name="FlameEm"
@@ -562,8 +572,6 @@ local p=Instance.new("Part",workspace)
 	p.CanCollide=true
 	p.Size=Vector3.new(50,3,50)
 	p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0)
-
-wait(2)
 
 while task.wait() do
 
@@ -617,6 +625,7 @@ local tweenInfo = TweenInfo.new((game.Workspace.RFIDObjectiveDoor:FindFirstChild
 tweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = game.Workspace.RFIDObjectiveDoor:FindFirstChild("DoorLocked").KickDoor.MainPart2.CFrame}):Play()
 repeat  p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0) task.wait() until SG_PackageMainGui.frame_heistResults.Visible == true or not game.Workspace.RFIDObjectiveDoor:FindFirstChild("DoorLocked") or (game.Workspace.RFIDObjectiveDoor:FindFirstChild("DoorLocked"):FindFirstChild("KickDoor").MainPart2.Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10
 wait(0.5) player.Character.HumanoidRootPart.Anchored = false
+player.Character.HumanoidRootPart.CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,10)
 elseif game:GetService("ReplicatedStorage").ReplicatedMissionEquipment:FindFirstChild("USB") and game.Workspace:FindFirstChild("UseUSBComputer") then
 local tweenInfo = TweenInfo.new((game.Workspace:FindFirstChild("UseUSBComputer").Keyboard.Position - player.Character.HumanoidRootPart.Position).Magnitude / tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
 tweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = game.Workspace:FindFirstChild("UseUSBComputer").Keyboard.CFrame}):Play()
@@ -972,6 +981,14 @@ elseif c.Name == "OpenMilitaryCrate" then
 if c:FindFirstChild("tracker") then
 c:FindFirstChild("tracker"):Destroy()
 end
+elseif c.Name == "OpenedSafe" then
+if c:FindFirstChild("Highlight") then
+c:FindFirstChild("Highlight"):Destroy()
+end
+elseif c.Name == "OpenedRegister" then
+if c:FindFirstChild("Highlight") then
+c:FindFirstChild("Highlight"):Destroy()
+end
 elseif c.Name == "BoomedBox" then
 if c:FindFirstChild("tracker") then
 c:FindFirstChild("tracker"):Destroy()
@@ -1052,7 +1069,7 @@ highlight.OutlineColor = Color3.fromRGB(255,170,0)
 end
 if (c:FindFirstChild("InsertDrill").Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10 then
 notify(c.Name)
-local Time = tick() + 15
+local Time = tick() + 14
 repeat
 if c:FindFirstChild("InsertDrill") and c:FindFirstChild("InsertDrill"):FindFirstChild("ProximityPromptPickLock") then
 StartInteractRemote:FireServer(c:FindFirstChild("InsertDrill"):FindFirstChild("ProximityPromptPickLock"))
@@ -1740,6 +1757,25 @@ StartInteractRemote:FireServer(colas:FindFirstChild("ProximityPrompt"))
 task.wait()
 until c == nil or colas == nil or tick() > Time or (player.Character:FindFirstChild("HumanoidRootPart").Position - colas.Position).magnitude > 10
 CompleteInteractiontRemote:FireServer(colas:FindFirstChild("ProximityPrompt"))
+end
+end
+elseif c.Name == "SmallJewels2" and c:FindFirstChild("Part") then
+if not c:FindFirstChild("Highlight") then
+local highlight = Instance.new("Highlight",c)
+highlight.FillTransparency = 1
+highlight.OutlineColor = Color3.fromRGB(255,170,0)
+end
+if (c:FindFirstChild("Part").Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10 then
+notify(c.Name)
+local Time = tick() + .01
+repeat
+if c:FindFirstChild("Part") and c:FindFirstChild("Part"):FindFirstChild("ProximityPrompt") then
+StartInteractRemote:FireServer(c:FindFirstChild("Part"):FindFirstChild("ProximityPrompt"))
+end
+task.wait()
+until c == nil or not c:FindFirstChild("Part") or tick() > Time or (player.Character:FindFirstChild("HumanoidRootPart").Position - c:FindFirstChild("Part").Position).magnitude > 10
+if c:FindFirstChild("Part") and c:FindFirstChild("Part"):FindFirstChild("ProximityPrompt") then
+CompleteInteractiontRemote:FireServer(c:FindFirstChild("Part"):FindFirstChild("ProximityPrompt"))
 end
 end
 end
