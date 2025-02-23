@@ -739,14 +739,14 @@ player.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("GuardL
 elseif game.Workspace:FindFirstChild("GuardLocker2") and game.Workspace:FindFirstChild("GuardLocker2"):FindFirstChild("Highlight_[]") and not player.Character:FindFirstChild("HAS COSTUME") then
 player.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild("GuardLocker2").Hitbox.CFrame
 elseif not player.Character:FindFirstChild("HAS COSTUME") and not game.Workspace:FindFirstChild("Built") then
-local tweenInfo = TweenInfo.new((game.Workspace.BagSecuredArea.FloorPart.Position+Vector3.new(0,0,10) - player.Character.HumanoidRootPart.Position).Magnitude / tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
-tweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,10)}):Play()
+local tweenInfo = TweenInfo.new((game.Workspace.BagSecuredArea.FloorPart.Position+Vector3.new(0,0,5) - player.Character.HumanoidRootPart.Position).Magnitude / tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+tweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,5)}):Play()
 p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0)
 if player.Character.HumanoidRootPart.Position.Y < -100 then
-player.Character.HumanoidRootPart.CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,10)
+player.Character.HumanoidRootPart.CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,5)
 end
 elseif player.Character:FindFirstChild("HAS COSTUME") then
-player.Character.HumanoidRootPart.CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,10)
+player.Character.HumanoidRootPart.CFrame = game.Workspace.BagSecuredArea.FloorPart.CFrame*CFrame.new(0,0,5)
 end
 end
 end)
