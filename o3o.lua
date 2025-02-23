@@ -601,6 +601,7 @@ DamageRemote:FireServer("Damage", player.Backpack:FindFirstChildOfClass("Tool"),
 end
 end
 
+setsimulationradius(999999999)
 game.Workspace.Gravity = 10
 
 for pussy,penises in ipairs(trophytable) do
