@@ -1603,7 +1603,7 @@ while task.wait() do
 			end
 			if (c:FindFirstChild("Main").Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10 then
 				notify(c.Name)
-				local Time = tick() + 4.25
+				local Time = tick() + 5
 				repeat
 					if c:FindFirstChild("Main") and c:FindFirstChild("Main"):FindFirstChild("ProximityPrompt") then
 						StartInteractRemote:FireServer(c:FindFirstChild("Main"):FindFirstChild("ProximityPrompt"))
