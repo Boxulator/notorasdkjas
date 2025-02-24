@@ -367,7 +367,7 @@ local function notify(objname)
 		game.StarterGui:SetCore("SendNotification", {Title = "AutoDefuse";Text = "Defusing "..objname.."...";Duration = "2";})
 	elseif objname == "KickDoor" then
 		game.StarterGui:SetCore("SendNotification", {Title = "AutoKick";Text = "FBI OPEN UP!";Duration = "2";})
-	elseif objname == "prop_stadium_storageKeypad" or objname == "UseUSBComputer" or objname == "StadiumHackLaptop" or obj.name == "HackableComputer" then
+	elseif objname == "prop_stadium_storageKeypad" or objname == "UseUSBComputer" or objname == "StadiumHackLaptop" or objname == "HackableComputer" then
 		game.StarterGui:SetCore("SendNotification", {Title = "AutoHack";Text = "Hacking "..objname.."...";Duration = "2";})
 	elseif objname == "stadiumDramaticButton" or objname == "AssemblePulleyRope" or objname == "AssemblePulleyHook" or objname == "PulleyLever" then
 		game.StarterGui:SetCore("SendNotification", {Title = "AutoInteract";Text = "Interacting with "..objname.."...";Duration = "2";})
