@@ -381,6 +381,10 @@ end
 end
 end)
 
+game:GetService("UserInputService").JumpRequest:connect(function()
+player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+end)
+
 local function notify(objname)
 if objname == "RandomCrate" or objname == "RushCrate" or objname == "MilitaryCrateUNTIMED" or objname == "MiniSafe" or objname == "DisplayCaseRemoveGlass" or objname == "rfid_faceplate" or objname == "ObjectivePickDoor1" or objname == "ObjectivePickDoor2" then
 game.StarterGui:SetCore("SendNotification", {Title = "AutoOpen";Text = "Opening up "..objname.."...";Duration = "2";})
@@ -564,14 +568,22 @@ until not PoliceFolder:FindFirstChildOfClass("Model") and not CivilliansFolder:F
 wait(2)
 
 local p=Instance.new("Part",workspace)
-	p.Name="FlameEm"
-	p.TopSurface=0
-	p.BottomSurface=0
-	p.BrickColor=BrickColor.random()
-	p.Anchored=true
-	p.CanCollide=true
-	p.Size=Vector3.new(50,3,50)
-	p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0)
+p.Name="FlameEm"
+p.TopSurface=0
+p.BottomSurface=0
+p.BrickColor=BrickColor.random()
+p.Anchored=true
+p.CanCollide=true
+p.Size=Vector3.new(50,3,50)
+p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0)
+
+game:GetService("RunService").Stepped:connect(function()
+for _,c in pairs(player.Character:GetChildren())do
+if c:IsA("BasePart") then
+c.CanCollide = false
+end
+end
+end)
 
 while task.wait() do
 
