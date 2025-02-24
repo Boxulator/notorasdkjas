@@ -504,12 +504,6 @@ if _G.OzelaFarm == true and string.match(game.PlaceId, "6537140247") then
 		local SG_PackageMainGui = PlayerGuiSG_Package:WaitForChild("MainGui")
 		local trophytable = {}
 
-		for _,giggity in ipairs(game.Workspace:GetDescendants())do
-			if giggity.Name == "TrophyLoot_" or giggity.Name == "TrophyLoot" then
-				table.insert(trophytable,giggity)
-			end
-		end
-
 		repeat task.wait() until SG_PackageMainGui:FindFirstChild("PregameFrame") and SG_PackageMainGui.PregameFrame.Visible == true
 
 		if SG_PackageMainGui.PregameFrame.Visible == true then
@@ -548,6 +542,12 @@ if _G.OzelaFarm == true and string.match(game.PlaceId, "6537140247") then
 			end
 			task.wait() 
 		until not PoliceFolder:FindFirstChildOfClass("Model") and not CivilliansFolder:FindFirstChildOfClass("Model") 
+
+		for _,giggity in ipairs(game.Workspace:GetDescendants())do
+			if giggity.Name == "TrophyLoot_" or giggity.Name == "TrophyLoot" then
+				table.insert(trophytable,giggity)
+			end
+		end
 
 		wait(2)
 
