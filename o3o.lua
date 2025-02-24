@@ -604,14 +604,14 @@ end
 setsimulationradius(999999999)
 game.Workspace.Gravity = 10
 
-for pussy,penises in ipairs(trophytable) do
+--[[for pussy,penises in ipairs(trophytable) do
 if penises.Name == "TrophyLoot" and penises:FindFirstChild("loot") or penises.Name == "TrophyLoot_" and penises:FindFirstChild("loot") then
 local tweenInfo = TweenInfo.new((penises:FindFirstChild("loot").CFrame.Position+Vector3.new(0,-2.5,0) - player.Character.HumanoidRootPart.Position).Magnitude / tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
 tweenService:Create(player.Character.HumanoidRootPart, tweenInfo, {CFrame = penises:FindFirstChild("loot").CFrame*CFrame.new(0,-2.5,0)}):Play()
 repeat p.CFrame = player.Character.HumanoidRootPart.CFrame*CFrame.new(0,-5,0)  task.wait() until SG_PackageMainGui.frame_heistResults.Visible == true or penises == nil or not penises:FindFirstChild("loot") or (penises:FindFirstChild("loot").Position - player.Character:FindFirstChild("HumanoidRootPart").Position).magnitude < 10
 wait(2)
 end
-end
+end]]
 
 if game.Workspace.Map:FindFirstChild("USB") and game.Workspace.RFIDObjectiveDoor:FindFirstChild("OpenDoor") and game.Workspace:FindFirstChild("prop_stadium_cardReader"):FindFirstChild("OpenedRFID") then
 local tweenInfo = TweenInfo.new((game.Workspace.Map:FindFirstChild("USB").Hitbox.Position - player.Character.HumanoidRootPart.Position).Magnitude / tweenspeed,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
